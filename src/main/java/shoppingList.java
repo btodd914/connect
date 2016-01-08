@@ -32,11 +32,6 @@ public class shoppingList {
     public static void main(String[] args) {
 
 
-
-
-
-        //       pantry.put("apple", 1);
-
         System.out.println("Please choose what option you would like to do.");
         System.out.println("Type 'add' to add something to your pantry");
         System.out.println("Type 'delete' to delete something from your pantry");
@@ -88,6 +83,7 @@ public class shoppingList {
                 pantryItem pantryItem = new pantryItem(item, amount);
 
                 KvMetadata kvMetadata = client.postValue("pantry", pantryItem).get();
+                pantryItem.setDataKey(kvMetadata.getKey());
 
                 System.out.println(kvMetadata.getKey());
 
@@ -109,19 +105,34 @@ public class shoppingList {
         }else{
             System.out.println("That item does not exist in your pantry.");
         }
+       /* try {
+            boolean result = client.kv("pantry", "dataBaseKey")
+                    .delete()
+                    .get();
+        }
+*/
     }
 
     public static void editItem() {
         System.out.println("What item would you like to edit?");
         String item = user_input.next();
+        int amount = 0;
 
-        if (!pantry.containsKey(item)) {
+        if (pantry.containsKey(item)) {
             System.out.println("That item does not exist in your pantry.");
         } else {
             System.out.println("What is the amount that you would like to change to?");
-            int amount = user_input.nextInt();
+            amount = user_input.nextInt();
             pantry.put(item, amount);
             System.out.println("You have changed " + item + " to the amount of " + amount);
+        }
+        try{
+            pantryItem obj = new pantryItem(item, amount);
+            final KvMetadata kvMetadata = client.put("pantry","pantryItem").get();
+
+        }
+        catch(NullPointerException e){
+            e.printStackTrace();
         }
     }
 
@@ -130,9 +141,27 @@ public class shoppingList {
         for (String key : pantry.keySet()) {
             System.out.println(key + ": " + pantry.get(key));
         }
+        try {
+            OrchestrateRequest<SearchResults<Void>> searchResultsOrchestrateRequest = client.searchCollection("pantry").get("*");
+            Iterator<Result<Void>> iterator = searchResultsOrchestrateRequest.get().getResults().iterator();
+            while (iterator.hasNext()) {
+                System.out.println(iterator.next().getKvObject().getRawValue());
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Unexcepted Exception");
+            e.printStackTrace();
+        } finally {
+        }
+    }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }        }
+
 
     }
-}
+
 
 
 
