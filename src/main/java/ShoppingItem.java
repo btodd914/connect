@@ -17,13 +17,13 @@ import java.util.Scanner;
 /**
  * Created by dev on 9/27/15.
  */
-public class shoppingItemHAHA {
+public class ShoppingItem {
 
     private static final String COLLECTION_NAME = "pantry";
     private static String API_KEY = "c3672b0c-b96c-4145-8b75-bd6895b5458e";
     private static OrchestrateClient client = new OrchestrateClient(API_KEY);
 
-    private static HashMap<String, pantryItemHAHA> pantry = new HashMap<>();
+    private static HashMap<String, PantryItem> pantry = new HashMap<>();
 
     public static Scanner user_input = new Scanner(System.in);
 
@@ -68,9 +68,9 @@ public class shoppingItemHAHA {
             System.out.println("That item is already in your pantry. Please edit this itemNam instead.");
         }
 
-        pantryItemHAHA pantryItemHAHA = new pantryItemHAHA(itemName, amount);
+        PantryItem PantryItem = new PantryItem(itemName, amount);
 
-        savePantryItem(itemName, pantryItemHAHA);
+        savePantryItem(itemName, PantryItem);
 
         System.out.println("You have added " + amount + " " + itemName + " to your pantry.");
 
@@ -98,8 +98,8 @@ public class shoppingItemHAHA {
         } else {
             System.out.println("What is the amount that you would like to change to?");
             int amount = user_input.nextInt();
-            pantryItemHAHA updatedPantryItemHAHA = new pantryItemHAHA(itemName, amount);
-            savePantryItem(itemName, updatedPantryItemHAHA);
+            PantryItem updatedPantryItem = new PantryItem(itemName, amount);
+            savePantryItem(itemName, updatedPantryItem);
             System.out.println("You have changed " + itemName + " to the amount of " + amount);
         }
 
@@ -126,9 +126,9 @@ public class shoppingItemHAHA {
         }
     }
 
-    private static void savePantryItem(String itemName, pantryItemHAHA updatedPantryItemHAHA) {
-        pantry.put(itemName, updatedPantryItemHAHA);
-        client.kv(COLLECTION_NAME, itemName).put(updatedPantryItemHAHA);
+    private static void savePantryItem(String itemName, PantryItem updatedPantryItem) {
+        pantry.put(itemName, updatedPantryItem);
+        client.kv(COLLECTION_NAME, itemName).put(updatedPantryItem);
     }
 
     private static void deletePantryItem(String itemName) {

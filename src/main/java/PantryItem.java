@@ -11,11 +11,11 @@ import java.io.Serializable;
  */
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class pantryItemHAHA implements Serializable{
+public class PantryItem implements Serializable{
     private String item;
     private int amount;
 
-    public pantryItemHAHA(String itemName, int currentAmount){
+    public PantryItem(String itemName, int currentAmount){
 
         item = itemName;
 
