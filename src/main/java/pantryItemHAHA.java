@@ -11,30 +11,16 @@ import java.io.Serializable;
  */
 
 @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-public class pantryItem implements Serializable{
+public class pantryItemHAHA implements Serializable{
     private String item;
-    private String databaseKey;
-    private String dataKey;
-    private String Key;
     private int amount;
-    private String datakey;
 
-    public pantryItem(String itemName , int currentAmount){
+    public pantryItemHAHA(String itemName, int currentAmount){
 
         item = itemName;
 
         amount = currentAmount;
 
-    }
-
-
-    public void setDataKey(String key) {
-
-
-        this.databaseKey = Key;
-    }
-    public String getDataKey() {
-        return databaseKey;
     }
 }
 
