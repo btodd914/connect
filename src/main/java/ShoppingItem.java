@@ -23,7 +23,7 @@ public class ShoppingItem {
     private static String API_KEY = "c3672b0c-b96c-4145-8b75-bd6895b5458e";
     private static OrchestrateClient client = new OrchestrateClient(API_KEY);
 
-    private static HashMap<String, PantryItem> pantry = new HashMap<>();
+    private static HashMap<String, PantryItem> pantry = getDatabaseItems();
 
     public static Scanner user_input = new Scanner(System.in);
 
@@ -68,9 +68,9 @@ public class ShoppingItem {
             System.out.println("That item is already in your pantry. Please edit this itemNam instead.");
         }
 
-        PantryItem PantryItem = new PantryItem(itemName, amount);
+        PantryItem pantryItem = new PantryItem(itemName, amount);
 
-        savePantryItem(itemName, PantryItem);
+        savePantryItem(itemName, pantryItem);
 
         System.out.println("You have added " + amount + " " + itemName + " to your pantry.");
 
@@ -85,8 +85,6 @@ public class ShoppingItem {
         } else {
             System.out.println("That item does not exist in your pantry.");
         }
-
-
     }
 
     public static void editItem() {
@@ -99,41 +97,47 @@ public class ShoppingItem {
             System.out.println("What is the amount that you would like to change to?");
             int amount = user_input.nextInt();
             PantryItem updatedPantryItem = new PantryItem(itemName, amount);
+
             savePantryItem(itemName, updatedPantryItem);
+
             System.out.println("You have changed " + itemName + " to the amount of " + amount);
         }
-
     }
 
     public static void listItem() {
         System.out.println("Here is a list of all of the items in your pantry!");
-        for (String key : pantry.keySet()) {
-            System.out.println(key + ": " + pantry.get(key));
-        }
-        try {
-            SearchResults<Void> searchResultsOrchestrateRequest = client
-                    .searchCollection(COLLECTION_NAME)
-                    .limit(100)
-                    .get("*")
-                    .get();
 
-            Iterator<Result<Void>> iterator = searchResultsOrchestrateRequest.getResults().iterator();
-            while (iterator.hasNext()) {
-                System.out.println(iterator.next().getKvObject().getRawValue());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Iterator<PantryItem> pantryItemIterator = pantry.values().iterator();
+
+        while (pantryItemIterator.hasNext()) {
+            System.out.println(pantryItemIterator.next());
         }
+    }
+
+    private static HashMap<String, PantryItem> getDatabaseItems() {
+        SearchResults<PantryItem> results = client
+                .searchCollection(COLLECTION_NAME)
+                .limit(100)
+                .get(PantryItem.class, "*")
+                .get();
+
+        Iterator<Result<PantryItem>> iterator = results.getResults().iterator();
+        HashMap<String, PantryItem> listHash = new HashMap<String, PantryItem>();
+        while (iterator.hasNext()) {
+            PantryItem pantryItem = iterator.next().getKvObject().getValue();
+            listHash.put(pantryItem.getItemName(), pantryItem);
+        }
+        return listHash;
     }
 
     private static void savePantryItem(String itemName, PantryItem updatedPantryItem) {
         pantry.put(itemName, updatedPantryItem);
-        client.kv(COLLECTION_NAME, itemName).put(updatedPantryItem);
+        client.kv(COLLECTION_NAME, itemName).put(updatedPantryItem).get().getKey();
     }
 
     private static void deletePantryItem(String itemName) {
         pantry.remove(itemName);
-        client.kv("pantry", itemName)
+        client.kv(COLLECTION_NAME, itemName)
                 .delete()
                 .get();
     }
