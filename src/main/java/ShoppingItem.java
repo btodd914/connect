@@ -20,35 +20,47 @@ import java.util.Scanner;
 public class ShoppingItem {
 
 
-
     public static Scanner user_input = new Scanner(System.in);
 
     public static void main(String[] args) {
 
 
-        System.out.println("Please choose what option you would like to do.");
-        System.out.println("Type 'new' to add something to your pantry");
-        System.out.println("Type 'delete' to delete something from your pantry");
-        System.out.println("Type 'edit' to adjust the items in your pantry");
-        System.out.println("Type 'list' to get a list of all items that are currently in your pantry");
 
 
-        String choice = user_input.next();
+
 
         //using a switch statement to determine next steps depending on user input
-        switch (choice) {
-            case "new":
-                addItem();
-                break;
-            case "delete":
-                deleteItem();
-                break;
-            case "edit":
-                editItem();
-                break;
-            case "list":
-                listItem();
-                break;
+        while(true){
+                System.out.println("\n");
+                System.out.println("Please choose what option you would like to do.");
+                System.out.println("Type 'new' to add a new item to your pantry");
+                System.out.println("Type 'delete' to delete something from your pantry");
+                System.out.println("Type 'edit' to adjust the items in your pantry");
+                System.out.println("Type 'list' to get a list of all items that are currently in your pantry");
+                System.out.println("Type 'exit' to quit the program.");
+                System.out.println("\n");
+
+                String choice = user_input.next().toLowerCase();
+            switch (choice) {
+                case "new":
+                    addItem();
+                    break;
+                case "delete":
+                    deleteItem();
+                    break;
+                case "edit":
+                    editItem();
+                    break;
+                case "list":
+                    listItem();
+                    break;
+                case "exit":
+                    System.exit(0);
+                default:
+                    System.out.println("That is not a valid choice.");
+                    break;
+
+            }
         }
     }
 
@@ -62,13 +74,15 @@ public class ShoppingItem {
         } else {
             System.out.println("What is the amount that you would like to add?");
             amount = user_input.nextInt();
+
+            PantryItem pantryItem = new PantryItem(itemName, amount);
+
+            PantryDataStorage.savePantryItem(itemName, pantryItem);
+
+            System.out.println("You have added " + amount + " " + itemName + " to your pantry.");
+
         }
 
-        PantryItem pantryItem = new PantryItem(itemName, amount);
-
-        PantryDataStorage.savePantryItem(itemName, pantryItem);
-
-        System.out.println("You have added " + amount + " " + itemName + " to your pantry.");
 
     }
 

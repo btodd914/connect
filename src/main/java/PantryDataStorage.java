@@ -11,9 +11,10 @@ import java.util.Iterator;
 public class PantryDataStorage {
 
     private static final String COLLECTION_NAME = "pantry";
-    private static HashMap<String, PantryItem> pantry = getDatabaseItems();
+
     private static String API_KEY = "c3672b0c-b96c-4145-8b75-bd6895b5458e";
     private static OrchestrateClient client = new OrchestrateClient(API_KEY);
+    private static HashMap<String, PantryItem> pantry = getDatabaseItems();
     ShoppingItem shoppingItem = new ShoppingItem();
 
 
@@ -52,8 +53,8 @@ public class PantryDataStorage {
     }
     public static boolean itemConsists(String itemName){
 
-        pantry.containsKey(itemName);
-        return true;
+        return pantry.containsKey(itemName);
+
     }
 
     public static void iteratorMethod(){
