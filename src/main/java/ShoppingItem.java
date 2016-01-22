@@ -2,12 +2,6 @@
  * Created by dev on 12/7/15.
  */
 
-import io.orchestrate.client.OrchestrateClient;
-import io.orchestrate.client.Result;
-import io.orchestrate.client.SearchResults;
-
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
 /**
  * Created by ryantodd on 12/1/15.
@@ -33,7 +27,7 @@ public class ShoppingItem {
         while(true){
                 System.out.println("\n");
                 System.out.println("Please choose what option you would like to do.");
-                System.out.println("Type 'new' to add a new item to your pantry");
+                System.out.println("Type 'new' to add a NEW item to your pantry");
                 System.out.println("Type 'delete' to delete something from your pantry");
                 System.out.println("Type 'edit' to adjust the items in your pantry");
                 System.out.println("Type 'list' to get a list of all items that are currently in your pantry");
