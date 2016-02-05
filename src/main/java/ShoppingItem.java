@@ -3,6 +3,9 @@
  */
 
 import java.util.Scanner;
+import java.util.logging.Logger;
+import javax.swing.*;
+
 /**
  * Created by ryantodd on 12/1/15.
  */
@@ -15,26 +18,30 @@ public class ShoppingItem {
 
 
     public static Scanner user_input = new Scanner(System.in);
+    public static void menuPrompt() {
+
+        System.out.println("\n");
+        System.out.println("Please choose what option you would like to do.");
+        System.out.println("Type 'new' to add a NEW item to your pantry");
+        System.out.println("Type 'delete' to delete something from your pantry");
+        System.out.println("Type 'edit' to adjust the items in your pantry");
+        System.out.println("Type 'list' to get a list of all items that are currently in your pantry");
+        System.out.println("Type 'exit' to quit the program.");
+        System.out.println("\n");
+    }
+
+    private static final Logger logger = Logger.getLogger(ShoppingItem.class.toString());
+
 
     public static void main(String[] args) {
 
 
-
-
-
-
         //using a switch statement to determine next steps depending on user input
         while(true){
-                System.out.println("\n");
-                System.out.println("Please choose what option you would like to do.");
-                System.out.println("Type 'new' to add a NEW item to your pantry");
-                System.out.println("Type 'delete' to delete something from your pantry");
-                System.out.println("Type 'edit' to adjust the items in your pantry");
-                System.out.println("Type 'list' to get a list of all items that are currently in your pantry");
-                System.out.println("Type 'exit' to quit the program.");
-                System.out.println("\n");
 
-                String choice = user_input.next().toLowerCase();
+            menuPrompt();
+            String choice = user_input.next().toLowerCase();
+
             switch (choice) {
                 case "new":
                     addItem();

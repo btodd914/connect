@@ -6,19 +6,14 @@ import org.junit.Test;
  */
 public class PantryDataStorageTest {
 
+
     @Test
-    public void shouldSavePantryItem(){
-        String itemExpected = "Onions";
-        int amountExpected = 10;
+    public void itemShouldConsist(){
 
-        PantryDataStorage target = new PantryDataStorage();
-        PantryItem newItem = new PantryItem(itemExpected,amountExpected);
-        target.savePantryItem();
+        String itemExpected = "Chocolate";
 
-
-
-
-
+        PantryDataStorage testItem = new PantryDataStorage();
+        testItem.itemConsists(itemExpected);
     }
 
 }
