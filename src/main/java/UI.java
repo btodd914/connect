@@ -6,13 +6,13 @@ import java.awt.event.ActionListener;
 /**
  * Created by dev on 2/3/16.
  */
-public class Pantry extends JFrame {
+public class UI extends JFrame {
 
     private JButton buttonNew, buttonEdit, buttonDelete, buttonList;
     private JLabel header;
 
 
-    public Pantry(){
+    public UI(){
         createView();
 
         setTitle("Look At Your Pantry!");
@@ -21,13 +21,12 @@ public class Pantry extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
 
-
     }
 
     private void createView(){
         JPanel panel = new JPanel();
         getContentPane().add(panel);
-        header = new JLabel("Welcome to your Pantry!");
+        header = new JLabel("Welcome to your UI!");
         header.setPreferredSize(
                 new Dimension(300,600));
         panel.add(header);
@@ -39,13 +38,13 @@ public class Pantry extends JFrame {
 
         panel.add(buttonNew);
 
-        buttonEdit = new JButton("Edit An Item In Your Pantry");
+        buttonEdit = new JButton("Edit An Item In Your UI");
         panel.add(buttonEdit);
 
         buttonDelete = new JButton("Delete An Item");
         panel.add(buttonDelete);
 
-        buttonList = new JButton("List Items In Your Pantry");
+        buttonList = new JButton("List Items In Your UI");
         panel.add(buttonList);
     }
 
@@ -55,7 +54,7 @@ public class Pantry extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Pantry().setVisible(true);
+                new UI().setVisible(true);
             }
         });
     }
@@ -64,6 +63,8 @@ public class Pantry extends JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            System.out.println("You clicked on Add");
+            ShoppingItem.addItem();
 
         }
     }

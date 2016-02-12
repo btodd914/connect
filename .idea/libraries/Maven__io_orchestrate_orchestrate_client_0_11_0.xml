@@ -2,6 +2,7 @@
   <library name="Maven: io.orchestrate:orchestrate-client:0.11.0">
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/io/orchestrate/orchestrate-client/0.11.0/orchestrate-client-0.11.0.jar!/" />
+      <root url="jar://$USER_HOME$/Downloads/apache-log4j-2.5-bin/log4j-1.2-api-2.5.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$MAVEN_REPOSITORY$/io/orchestrate/orchestrate-client/0.11.0/orchestrate-client-0.11.0-javadoc.jar!/" />

@@ -1,10 +1,9 @@
-import junit.framework.Assert;
 import org.junit.Test;
 
 /**
  * Created by dev on 1/20/16.
  */
-public class PantryDataStorageTest {
+public class HashDataTest {
 
 
     @Test
@@ -12,7 +11,7 @@ public class PantryDataStorageTest {
 
         String itemExpected = "Chocolate";
 
-        PantryDataStorage testItem = new PantryDataStorage();
+        HashData testItem = new HashData();
         testItem.itemConsists(itemExpected);
     }
 

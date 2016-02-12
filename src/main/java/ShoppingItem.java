@@ -1,10 +1,8 @@
 /**
  * Created by dev on 12/7/15.
  */
-
+//import org.apache.log4j.Logger;
 import java.util.Scanner;
-import java.util.logging.Logger;
-import javax.swing.*;
 
 /**
  * Created by ryantodd on 12/1/15.
@@ -16,7 +14,7 @@ import javax.swing.*;
  */
 public class ShoppingItem {
 
-
+    public static HashData pantryHash = new HashData();
     public static Scanner user_input = new Scanner(System.in);
     public static void menuPrompt() {
 
@@ -30,7 +28,7 @@ public class ShoppingItem {
         System.out.println("\n");
     }
 
-    private static final Logger logger = Logger.getLogger(ShoppingItem.class.toString());
+//    private static Logger logger = Logger.getLogger(ShoppingItem.class);
 
 
     public static void main(String[] args) {
@@ -41,6 +39,7 @@ public class ShoppingItem {
 
             menuPrompt();
             String choice = user_input.next().toLowerCase();
+
 
             switch (choice) {
                 case "new":
@@ -67,10 +66,15 @@ public class ShoppingItem {
 
     public static void addItem() {
 
+//        if (logger.isDebugEnabled()) {
+//            logger.debug("addItem | Start...");
+//        }
+//        logger.debug("This is outside of an if block");
+
         System.out.println("What item would you like to add to your pantry?");
         String itemName = user_input.next();
         int amount = 0;
-        if (PantryDataStorage.itemConsists(itemName)) {
+        if (pantryHash.itemConsists(itemName)) {
             System.out.println("That item is already in your pantry. Please edit this item instead.");
         } else {
             System.out.println("What is the amount that you would like to add?");
@@ -78,7 +82,7 @@ public class ShoppingItem {
 
             PantryItem pantryItem = new PantryItem(itemName, amount);
 
-            PantryDataStorage.savePantryItem(itemName, pantryItem);
+           pantryHash.savePantryItem(itemName, pantryItem);
 
             System.out.println("You have added " + amount + " " + itemName + " to your pantry.");
 
@@ -90,8 +94,8 @@ public class ShoppingItem {
     public static void deleteItem() {
         System.out.println("What item would you like to delete?");
         String itemName = user_input.next();
-        if (PantryDataStorage.itemConsists(itemName)) {
-            PantryDataStorage.deletePantryItem(itemName);
+        if (HashData.itemConsists(itemName)) {
+            HashData.deletePantryItem(itemName);
             System.out.println(itemName + " has been removed from your pantry.");
         } else {
             System.out.println("That item does not exist in your pantry.");
@@ -102,14 +106,14 @@ public class ShoppingItem {
         System.out.println("What item would you like to edit?");
         String itemName = user_input.next();
 
-        if (PantryDataStorage.itemConsists(itemName)) {
+        if (HashData.itemConsists(itemName)) {
             System.out.println("That item does not exist in your pantry.");
         } else {
             System.out.println("What is the amount that you would like to change to?");
             int amount = user_input.nextInt();
             PantryItem updatedPantryItem = new PantryItem(itemName, amount);
 
-            PantryDataStorage.savePantryItem(itemName, updatedPantryItem);
+            HashData.savePantryItem(itemName, updatedPantryItem);
 
             System.out.println("You have changed " + itemName + " to the amount of " + amount);
         }
@@ -118,7 +122,7 @@ public class ShoppingItem {
     public static void listItem() {
         System.out.println("Here is a list of all of the items in your pantry!");
 
-        PantryDataStorage.iteratorMethod();
+        HashData.iteratorMethod();
     }
 }
 
