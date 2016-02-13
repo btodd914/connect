@@ -1,7 +1,10 @@
+import org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 /**
  * Created by dev on 2/3/16.
@@ -10,6 +13,9 @@ public class UI extends JFrame {
 
     private JButton buttonNew, buttonEdit, buttonDelete, buttonList;
     private JLabel header;
+    private JList listnew;
+    private JTextField addItem, itemAmount;
+    public static HashData loadHash = new HashData();
 
 
     public UI(){
@@ -33,19 +39,40 @@ public class UI extends JFrame {
 
 
         buttonNew = new JButton("Add New Item");
-        buttonNew.addActionListener(
-                new ButtonNewActionListener());
+        buttonNew.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                String itemAdded = addItem.getText();
+                int amountWanted = itemAmount.getX();
+
+
+
+            }
+        });
 
         panel.add(buttonNew);
 
-        buttonEdit = new JButton("Edit An Item In Your UI");
+        buttonEdit = new JButton("Edit An Item In Your Pantry");
         panel.add(buttonEdit);
 
         buttonDelete = new JButton("Delete An Item");
         panel.add(buttonDelete);
 
-        buttonList = new JButton("List Items In Your UI");
+        buttonList = new JButton("Update Your List");
         panel.add(buttonList);
+
+        listnew = new JList();
+        listnew.setVisibleRowCount(4);
+
+        addItem = new JTextField();
+        addItem.setPreferredSize(new Dimension(150, 30));
+        panel.add(addItem);
+
+        itemAmount = new JTextField();
+        itemAmount.setPreferredSize(new Dimension(75, 30));
+        panel.add(itemAmount);
+
+
     }
 
 
@@ -59,13 +86,4 @@ public class UI extends JFrame {
         });
     }
 
-    private class ButtonNewActionListener implements ActionListener {
-
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            System.out.println("You clicked on Add");
-            ShoppingItem.addItem();
-
-        }
-    }
 }
