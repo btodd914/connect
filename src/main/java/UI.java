@@ -25,44 +25,57 @@ public class UI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         pack();
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
 
     }
 
     private void createView(){
         JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
         getContentPane().add(panel);
         header = new JLabel("Welcome to your UI!");
         header.setPreferredSize(
-                new Dimension(300,600));
+                new Dimension(300, 600));
         panel.add(header);
+
+        JPanel panelWest = new JPanel(new BorderLayout());
+        panel.add(panelWest, BorderLayout.WEST);
+
+        JPanel panelNorth = new JPanel(new BorderLayout());
+        panel.add(panelNorth, BorderLayout.NORTH);
+
+        JPanel panelSouth = new JPanel(new BorderLayout());
+        panel.add(panelSouth, BorderLayout.SOUTH);
+
+        JPanel panelCenter = new JPanel(new BorderLayout());
+        panel.add(panelCenter, BorderLayout.CENTER);
+
 
 
         buttonNew = new JButton("Add New Item");
-        buttonNew.addActionListener(new ActionListener(){
+        buttonNew.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 String itemAdded = addItem.getText();
                 int amountWanted = itemAmount.getX();
-
-
 
             }
         });
 
-        panel.add(buttonNew);
+        panelWest.add(buttonNew, BorderLayout.NORTH);
 
         buttonEdit = new JButton("Edit An Item In Your Pantry");
-        panel.add(buttonEdit);
+        panelWest.add(buttonEdit, BorderLayout.NORTH);
 
         buttonDelete = new JButton("Delete An Item");
-        panel.add(buttonDelete);
+        panelWest.add(buttonDelete, BorderLayout.WEST);
 
         buttonList = new JButton("Update Your List");
-        panel.add(buttonList);
+        panelWest.add(buttonList, BorderLayout.WEST);
 
         listnew = new JList();
-        listnew.setVisibleRowCount(4);
+        listnew.setVisibleRowCount(200);
+        panelCenter.add(listnew, BorderLayout.EAST);
 
         addItem = new JTextField();
         addItem.setPreferredSize(new Dimension(150, 30));
