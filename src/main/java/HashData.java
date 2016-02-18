@@ -2,8 +2,11 @@ import io.orchestrate.client.OrchestrateClient;
 import io.orchestrate.client.Result;
 import io.orchestrate.client.SearchResults;
 
+import javax.swing.text.html.HTMLDocument;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by dev on 1/14/16.
@@ -24,7 +27,7 @@ public class HashData {
     public static void savePantryItem(String itemName, PantryItem updatedPantryItem){
 
         pantry.put(itemName, updatedPantryItem);
-        Database.saveToDB(itemName,updatedPantryItem);
+        Database.saveToDB(itemName, updatedPantryItem);
 
     }
 
@@ -41,12 +44,15 @@ public class HashData {
 
     }
 
+    public static List<PantryItem> getItems(){
+        return new ArrayList<>(pantry.values());
+    }
+
     public static void iteratorMethod(){
-        Iterator<PantryItem> pantryItemIterator = pantry.values().iterator();
+        Iterator<PantryItem> pantryItemIterator = getItems().iterator();
 
         while (pantryItemIterator.hasNext()) {
             System.out.println(pantryItemIterator.next());
         }
     }
-
 }

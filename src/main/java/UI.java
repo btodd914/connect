@@ -1,10 +1,14 @@
 import org.springframework.beans.factory.config.ObjectFactoryCreatingFactoryBean;
 
 import javax.swing.*;
+import javax.swing.text.html.HTMLDocument;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Iterator;
+
+
 
 /**
  * Created by dev on 2/3/16.
@@ -13,9 +17,9 @@ public class UI extends JFrame {
 
     private JButton buttonNew, buttonEdit, buttonDelete, buttonList;
     private JLabel header;
-    private JList listnew;
+    private List listNew;
     private JTextField addItem, itemAmount;
-    public static HashData loadHash = new HashData();
+    private final HashData loadHash = new HashData();
 
 
     public UI(){
@@ -35,20 +39,20 @@ public class UI extends JFrame {
         getContentPane().add(panel);
         header = new JLabel("Welcome to your UI!");
         header.setPreferredSize(
-                new Dimension(300, 600));
+                new Dimension(600, 600));
         panel.add(header);
 
         JPanel panelWest = new JPanel(new BorderLayout());
         panel.add(panelWest, BorderLayout.WEST);
 
-        JPanel panelNorth = new JPanel(new BorderLayout());
+        JPanel panelNorth = new JPanel(new FlowLayout());
         panel.add(panelNorth, BorderLayout.NORTH);
 
-        JPanel panelSouth = new JPanel(new BorderLayout());
-        panel.add(panelSouth, BorderLayout.SOUTH);
-
-        JPanel panelCenter = new JPanel(new BorderLayout());
+        JPanel panelCenter = new JPanel(new FlowLayout());
         panel.add(panelCenter, BorderLayout.CENTER);
+
+        JPanel panelEast = new JPanel((new FlowLayout()));
+        panel.add(panelEast, BorderLayout.EAST);
 
 
 
@@ -56,39 +60,45 @@ public class UI extends JFrame {
         buttonNew.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String itemAdded = addItem.getText();
-                int amountWanted = itemAmount.getX();
+                ShoppingItem.addItem();
+                addItem.getText();
+                itemAmount.getComponentCount();
+
 
             }
         });
-
-        panelWest.add(buttonNew, BorderLayout.NORTH);
+        panelNorth.add(buttonNew);
 
         buttonEdit = new JButton("Edit An Item In Your Pantry");
-        panelWest.add(buttonEdit, BorderLayout.NORTH);
+        panelNorth.add(buttonEdit);
 
         buttonDelete = new JButton("Delete An Item");
-        panelWest.add(buttonDelete, BorderLayout.WEST);
+        panelWest.add(buttonDelete, BorderLayout.NORTH);
 
         buttonList = new JButton("Update Your List");
-        panelWest.add(buttonList, BorderLayout.WEST);
+        panelWest.add(buttonList, BorderLayout.SOUTH);
 
-        listnew = new JList();
-        listnew.setVisibleRowCount(200);
-        panelCenter.add(listnew, BorderLayout.EAST);
+        listNew = new List();
+        Iterator<PantryItem> iterator = loadHash.getItems().iterator();
+        while(iterator.hasNext()){
+            PantryItem next = iterator.next();
+            listNew.add(next.getItemName());
+
+        }
+        panelCenter.add(listNew);
+        listNew.setPreferredSize(new Dimension(300, 300));
+        listNew.
 
         addItem = new JTextField();
         addItem.setPreferredSize(new Dimension(150, 30));
-        panel.add(addItem);
+        panelEast.add(addItem);
 
         itemAmount = new JTextField();
         itemAmount.setPreferredSize(new Dimension(75, 30));
-        panel.add(itemAmount);
+        panelEast.add(itemAmount);
 
 
     }
-
-
 
     public static void main (String[]args){
         SwingUtilities.invokeLater(new Runnable() {
