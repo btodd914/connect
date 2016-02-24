@@ -13,7 +13,7 @@ import java.util.Iterator;
 /**
  * Created by dev on 2/3/16.
  */
-public class UI extends JFrame {
+/*public class UI extends JFrame {
 
     private JButton buttonNew, buttonEdit, buttonDelete, buttonList;
     private JLabel header;
@@ -109,4 +109,4 @@ public class UI extends JFrame {
         });
     }
 
-}
+}*/

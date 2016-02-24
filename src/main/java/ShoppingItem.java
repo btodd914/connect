@@ -107,15 +107,14 @@ public class ShoppingItem {
         String itemName = user_input.next();
 
         if (HashData.itemConsists(itemName)) {
-            System.out.println("That item does not exist in your pantry.");
-        } else {
             System.out.println("What is the amount that you would like to change to?");
             int amount = user_input.nextInt();
-            PantryItem updatedPantryItem = new PantryItem(itemName, amount);
+            PantryItem updatedPantryItem = new PantryItem(itemName,amount);
 
             HashData.savePantryItem(itemName, updatedPantryItem);
-
             System.out.println("You have changed " + itemName + " to the amount of " + amount);
+        } else {
+            System.out.println("That item does not exist in your pantry");
         }
     }
 

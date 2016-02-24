@@ -38,7 +38,7 @@ public class PantryItem implements Serializable {
     }
 
     public String toString() {
-        return "PantryItem: " + itemName + " Amount:" + amount;
+        return itemName +":" + amount;
     }
 }
 
